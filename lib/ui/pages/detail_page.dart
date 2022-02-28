@@ -1,3 +1,5 @@
+import 'package:airplane/ui/widgets/custom_button.dart';
+import 'package:airplane/ui/widgets/interest_item.dart';
 import 'package:airplane/ui/widgets/photo_item.dart';
 import 'package:flutter/material.dart';
 import '../../shared/themes.dart';
@@ -179,6 +181,84 @@ class DetailPage extends StatelessWidget {
                       ),
                     ],
                   ),
+
+                  // Interests
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Interests',
+                    style: blackTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: semiBold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  Row(
+                    children: [
+                      InterestItem(
+                        name: 'Kids Park',
+                      ),
+                      InterestItem(
+                        name: 'Honor Bridge',
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      InterestItem(
+                        name: 'City Museum',
+                      ),
+                      InterestItem(
+                        name: 'Central Mall',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            // Price & Booking Button
+            Container(
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(vertical: 30),
+              child: Row(
+                children: [
+                  // Price
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'IDR 2.500.000',
+                          style: blackTextStyle.copyWith(
+                            fontSize: 18,
+                            fontWeight: medium,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 6,
+                        ),
+                        Text(
+                          'per orang',
+                          style: greyTextStyle.copyWith(
+                            fontWeight: light,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Book button
+                  CustomButton(
+                    title: 'Book Now',
+                    onPresed: () {},
+                    width: 170,
+                  ),
                 ],
               ),
             ),
@@ -189,12 +269,14 @@ class DetailPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      body: Stack(
-        children: [
-          backgroundImage(),
-          customShadow(),
-          content(),
-        ],
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            backgroundImage(),
+            customShadow(),
+            content(),
+          ],
+        ),
       ),
     );
   }
