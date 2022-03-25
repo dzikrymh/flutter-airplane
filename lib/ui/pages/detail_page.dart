@@ -1,4 +1,5 @@
 import 'package:airplane/models/destination_model.dart';
+import 'package:airplane/ui/pages/choose_seat_page.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
 import 'package:airplane/ui/widgets/interest_item.dart';
 import 'package:airplane/ui/widgets/photo_item.dart';
@@ -239,10 +240,10 @@ class DetailPage extends StatelessWidget {
                       children: [
                         Text(
                           NumberFormat.currency(
-                                  locale: 'id',
-                                  symbol: 'IDR ',
-                                  decimalDigits: 0)
-                              .format(destination.price),
+                            locale: 'id',
+                            symbol: 'IDR ',
+                            decimalDigits: 0,
+                          ).format(destination.price),
                           style: blackTextStyle.copyWith(
                             fontSize: 18,
                             fontWeight: medium,
@@ -265,7 +266,12 @@ class DetailPage extends StatelessWidget {
                   CustomButton(
                     title: 'Book Now',
                     onPresed: () {
-                      Navigator.pushNamed(context, '/choose-seat');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChooseSeatPage(destination),
+                        ),
+                      );
                     },
                     width: 170,
                   ),

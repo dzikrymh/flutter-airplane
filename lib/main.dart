@@ -51,7 +51,6 @@ class MyApp extends StatelessWidget {
           '/sign-up': (context) => SignUpPage(),
           '/bonus': (context) => BonusPage(),
           '/main': (context) => MainPage(),
-          '/choose-seat': (context) => ChooseSeatPage(),
           '/checkout': (context) => CheckoutPage(),
           '/success-checkout': (context) => SuccessCheckoutPage(),
         },
