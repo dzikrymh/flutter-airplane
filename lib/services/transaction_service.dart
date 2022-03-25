@@ -22,17 +22,18 @@ class TransactionService {
     }
   }
 
-  // Future<UserModel> getUserById(String id) async {
-  //   try {
-  //     DocumentSnapshot snapshot = await _userReference.doc(id).get();
-  //     return UserModel(
-  //         id: id,
-  //         email: snapshot['email'],
-  //         name: snapshot['name'],
-  //         hobby: snapshot['hobby'],
-  //         balance: snapshot['balance']);
-  //   } catch (e) {
-  //     throw e;
-  //   }
-  // }
+  Future<List<TransactionModel>> fetchTransactions() async {
+    try {
+      QuerySnapshot result = await _transactionReference.get();
+
+      List<TransactionModel> transactions = result.docs.map((e) {
+        return TransactionModel.fromJson(
+            e.id, e.data() as Map<String, dynamic>);
+      }).toList();
+
+      return transactions;
+    } catch (e) {
+      throw e;
+    }
+  }
 }

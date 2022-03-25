@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:airplane/cubit/auth_cubit.dart';
+import 'package:airplane/cubit/transaction_cubit.dart';
 import 'package:airplane/models/transaction_model.dart';
 import 'package:airplane/ui/widgets/booking_detail_item.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
@@ -332,12 +333,37 @@ class CheckoutPage extends StatelessWidget {
     }
 
     Widget payNowButton() {
-      return CustomButton(
-        title: 'Pay Now',
-        onPresed: () {
-          Navigator.pushNamed(context, '/success-checkout');
+      return BlocConsumer<TransactionCubit, TransactionState>(
+        listener: (context, state) {
+          if (state is TransactionSuccess) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/success-checkout', (route) => false);
+          } else if (state is TransactionFailed) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: kRedColor,
+                content: Text(state.error),
+              ),
+            );
+          }
         },
-        margin: EdgeInsets.only(top: 30),
+        builder: (context, state) {
+          if (state is TransactionLoading) {
+            return Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(top: 30),
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return CustomButton(
+            title: 'Pay Now',
+            onPresed: () {
+              context.read<TransactionCubit>().createTransaction(transaction);
+            },
+            margin: EdgeInsets.only(top: 30),
+          );
+        },
       );
     }
 
