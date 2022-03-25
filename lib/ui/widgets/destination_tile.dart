@@ -1,4 +1,5 @@
 import 'package:airplane/models/destination_model.dart';
+import 'package:airplane/ui/pages/detail_page.dart';
 import 'package:flutter/material.dart';
 import '../../shared/themes.dart';
 
@@ -14,7 +15,12 @@ class DestinationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/detail');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailPage(destination),
+          ),
+        );
       },
       child: Container(
         margin: EdgeInsets.only(
